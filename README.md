@@ -14,13 +14,16 @@ Yes I have to set these, 'default' behavior is to create a new security group wi
 
 Then I connect to it from my local terminal:
 
+tbh, it's easier to do this via ec2 web console.
+{
 ```cd /Users/douglasmckinley/Downloads/```
 
-```chmod 400 MyRobot.pem```
+```chmod 400 "MyRobot.pem"```
 
 > ssh -i "MyRobot.pem" {Public IPv4 DNS}
 
-```ssh -i MyRobot.pem ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
+```ssh -i "MyRobot.pem" ec2-user@ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
+}
 
 // ------------------------------------------------------------------------------------------
 
