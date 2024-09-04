@@ -64,6 +64,19 @@ cat ~/.ssh/id_ed25519.pub
 git clone git@github.com:mckinlde/clBot.git
 ```
 
+And finally it's time to use the setup_selenium.sh script 
+
+```
+# Navigate to the directory containing the script
+cd ~/clBot
+
+# make it executable
+chmod +x setup_selenium.sh
+
+# run the script
+./setup_selenium.sh
+```
+
 // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.
