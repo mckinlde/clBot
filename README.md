@@ -6,7 +6,7 @@ You can read about why this is a bad idea here: https://singlepaynews.com/feed/1
 But apparently I just can't help myself.
 
 First, I launch an ec2 instance.  I use:
-- the Jenkins .pem,
+- a new .pem file that is saved to my local machine's downloads folder
 - default security group for the VPC
 - and add the security group that allows me to ssh from home.
 
@@ -16,11 +16,11 @@ Then I connect to it from my local terminal:
 
 ```cd /Users/douglasmckinley/Downloads/```
 
-```chmod 400 "Jenkins.pem"```
+```chmod 400 "MyRobot.pem"```
 
-> ssh -i "Jenkins.pem" {Public IPv4 DNS}
+> ssh -i "MyRobot.pem" {Public IPv4 DNS}
 
-```ssh -i "Jenkins.pem" ec2-34-219-110-211.us-west-2.compute.amazonaws.com```
+```ssh -i "MyRobot.pem" ec2-34-219-110-211.us-west-2.compute.amazonaws.com```
 
 // ------------------------------------------------------------------------------------------
 
