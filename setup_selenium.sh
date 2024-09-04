@@ -61,3 +61,6 @@ EOL
 
 # Run the Selenium test
 python3 selenium_test.py
+
+# Install boto3 to write to dynamoDB with python
+pip3 install boto3

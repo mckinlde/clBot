@@ -144,6 +144,15 @@ Click on "Actions" -> "Security" -> "Modify IAM role".
 Attach a role that has DynamoDB access.
 ```
 
+3. use a python script
+
+Sick, it worked.  All I was missing was boto3, and I added that to setup_selenium.sh for redundancy
+
+Now I'm ready to make da scraper.
+
+# 5. Scraping the web
+
+I have a script I could convert, but it may be easier to start from the script I have
 
 
 // ------------------------------------------------------------------------------------------
