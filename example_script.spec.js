@@ -7,6 +7,7 @@ const {By, Builder, Browser} = require('selenium-webdriver');
 const assert = require("assert");
 
 (async function firstTest() {
+  console.log('start firstTest()');
   let driver;
   
   try {
@@ -14,6 +15,7 @@ const assert = require("assert");
     await driver.get('https://www.selenium.dev/selenium/web/web-form.html');
   
     let title = await driver.getTitle();
+    console.log('title: ', title);
     assert.equal("Web form", title);
   
     await driver.manage().setTimeouts({implicit: 500});
@@ -31,5 +33,6 @@ const assert = require("assert");
     console.log(e)
   } finally {
     await driver.quit();
+    console.log('end firstTest()');
   }
 }())
