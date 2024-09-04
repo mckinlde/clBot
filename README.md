@@ -18,7 +18,7 @@ Then I connect to it from my local terminal:
 
 ```chmod 400 "Jenkins.pem"```
 
-> ssh -i "Jenkins.pem" %{Public IPv4 DNS}
+> ssh -i "Jenkins.pem" {Public IPv4 DNS}
 
 ```ssh -i "Jenkins.pem" ec2-34-219-110-211.us-west-2.compute.amazonaws.com```
 
