@@ -22,3 +22,20 @@ source ~/.bashrc
 nvm install --lts
 # test that node is installed
 node -e "console.log('Running Node.js ' + process.version)"
+
+# https://preethamdpg.medium.com/running-selenium-webdriver-with-python-on-an-aws-ec2-instance-be9780c97d47
+# Install Chrome (browser first, then webdriver to match browser version)
+cd ../../
+cd tmp
+sudo wget https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
+sudo unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+chromedriver --version
+# ChromeDriver 80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882})
+
+# Testing example_script
+node clBot/example_script.spec.js
+#start firstTest()
+# Error: Unable to obtain browser driver.
+#         For more information on how to install drivers see
+#
