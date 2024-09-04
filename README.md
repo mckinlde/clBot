@@ -1,7 +1,7 @@
 # clBot
 How to know a good deal when you see one? Look at a lot of them.
 
-You can read about why this is a bad idea here: https://singlepaynews.com/feed/1431
+You can read about why this is a bad idea [here](https://singlepaynews.com/feed/1431) 
 
 But apparently I just can't help myself.
 
@@ -14,7 +14,7 @@ Yes I have to set these, 'default' behavior is to create a new security group wi
 
 Then I connect to it from my local terminal:
 
-tbh, it's easier to do this via ec2 web console. https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#ConnectToInstance:instanceId=i-0e0e8d75c406094a3
+tbh, it's easier to do this via [ec2 web console](https://us-west-2.console.aws.amazon.com/ec2/home). 
 
 {
 
