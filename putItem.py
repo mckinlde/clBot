@@ -11,7 +11,7 @@ table = dynamodb.Table('cars')  # Replace with your table name
 # Example of inserting an item
 table.put_item(
     Item={
-        'PrimaryKey': 'url',  # Replace with your primary key
+        'url': 'example',  # Replace with your primary key
         'Attribute1': 'value1',
         'Attribute2': 'value2'
     }
@@ -19,7 +19,7 @@ table.put_item(
 
 # Example of querying items
 response = table.query(
-    KeyConditionExpression=Key('PrimaryKey').eq('url')  # Replace with your key condition
+    KeyConditionExpression=Key('url').eq('example')  # Replace with your key condition
 )
 
 items = response['Items']
