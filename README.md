@@ -115,6 +115,14 @@ Default region name [None]: us-west-2
 Default output format [None]: 
 ```
 
+Finally, this command-line putItem works:
+
+```
+aws dynamodb put-item \
+    --table-name cars  \
+    --item \
+        '{"url": {"S": "No One You Know"}, "area": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}, "Awards": {"N": "1"}}'
+```
 
 // ------------------------------------------------------------------------------------------
 
