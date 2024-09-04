@@ -14,8 +14,10 @@ Yes I have to set these, 'default' behavior is to create a new security group wi
 
 Then I connect to it from my local terminal:
 
-tbh, it's easier to do this via ec2 web console.
+tbh, it's easier to do this via ec2 web console. https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#ConnectToInstance:instanceId=i-0e0e8d75c406094a3
+
 {
+
 ```cd /Users/douglasmckinley/Downloads/```
 
 ```chmod 400 "MyRobot.pem"```
@@ -23,7 +25,20 @@ tbh, it's easier to do this via ec2 web console.
 > ssh -i "MyRobot.pem" {Public IPv4 DNS}
 
 ```ssh -i "MyRobot.pem" ec2-user@ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
+
 }
+
+I can also use scp to transfer files
+
+```scp -i "MyRobot.pem" filename-to-transfer-from-local ec2-user@ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
+
+Okay but finally I am ssh'd in to the ec2 instance.
+
+I want to have [chrome webdriver stuff](https://googlechromelabs.github.io/chrome-for-testing/#stable) so I use wget:
+
+```wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.119/linux64/chrome-linux64.zip```
+
+```wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.119/linux64/chromedriver-linux64.zip```
 
 // ------------------------------------------------------------------------------------------
 
