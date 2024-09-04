@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "selenium-webdriver": "^4.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.3"
+  }
+}
