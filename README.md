@@ -20,7 +20,7 @@ Then I connect to it from my local terminal:
 
 > ssh -i "MyRobot.pem" {Public IPv4 DNS}
 
-```ssh -i "MyRobot.pem" ec2-34-219-110-211.us-west-2.compute.amazonaws.com```
+```ssh -i "MyRobot.pem" ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
 
 // ------------------------------------------------------------------------------------------
 
