@@ -1,10 +1,13 @@
 # clBot
+
+# 1. Background
 How to know a good deal when you see one? Look at a lot of them.
 
 You can read about why this is a bad idea [here](https://singlepaynews.com/feed/1431) 
 
 But apparently I just can't help myself.
 
+# 2. Launching an ec2 from the aws web console
 First, I launch an ec2 instance.  I use:
 - a new .pem file that is saved to my local machine's downloads folder
 - default security group for the VPC
@@ -16,7 +19,6 @@ Then I connect to it from my local terminal:
 
 tbh, it's easier to do this via [ec2 web console](https://us-west-2.console.aws.amazon.com/ec2/home). 
 
-{
 
 ```cd /Users/douglasmckinley/Downloads/```
 
@@ -26,13 +28,14 @@ tbh, it's easier to do this via [ec2 web console](https://us-west-2.console.aws.
 
 ```ssh -i "MyRobot.pem" ec2-user@ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
 
-}
 
 I can also use scp to transfer files
 
 ```scp -i "MyRobot.pem" filename-to-transfer-from-local ec2-user@ec2-52-32-86-217.us-west-2.compute.amazonaws.com```
 
 Okay but finally I am ssh'd in to the ec2 instance.
+
+# 3. Configuring the EC2 with git (from a ssh'd terminal window)
 
 Now we're ready to pull our git repo and start making things repeatable with shell scripts.
 
