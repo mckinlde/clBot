@@ -85,6 +85,13 @@ The expected output is:
 
 > Google
 
+
+Sick.  Measurable progress.  Now I can run headless chrome/selenium from an ec2, and I just need a script that gets what I want from the web and saves it to dynamo.
+
+The script I have now running locally uses a sql table and runs with a browser window, so it's not completely useless but needs to change a lot.
+
+I think chatGPT can make the existing script run headlessly; so I'm going to focus on getting this ec2 to write to a dynamoDB table so that I have it ready to go.
+
 // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.
