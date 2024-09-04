@@ -12,15 +12,18 @@ sudo yum install -y fontconfig freetype freetype-devel alsa-lib atk cairo \
 # Remove any existing Chrome installation
 sudo yum remove -y google-chrome-stable
 
-# Download and install the latest stable version of Google Chrome
+# Download and install the latest version of Google Chrome (v128)
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 sudo yum install -y ./google-chrome-stable_current_x86_64.rpm
 
 # Verify Chrome installation
 google-chrome --version
 
-# Download the latest stable version of ChromeDriver from the new source
-wget -N https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.170/linux64/chromedriver-linux64.zip
+# Set the Chrome version (to 128.x.x)
+CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+' | head -n1)
+
+# Download the corresponding ChromeDriver for version 128 from the Chrome Testing site
+wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/128.0.6613.119/linux64/chromedriver-linux64.zip
 
 # Unzip and move ChromeDriver to /usr/local/bin
 unzip chromedriver-linux64.zip
