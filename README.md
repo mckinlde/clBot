@@ -124,6 +124,28 @@ aws dynamodb put-item \
         '{"url": {"S": "No One You Know"}, "area": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}, "Awards": {"N": "1"}}'
 ```
 
+ChatGPT says I need to do these things to get setup:
+
+1. Install Boto3
+
+```pip3 install boto3```
+
+2. Configure AWS Credentials
+
+I should be using IAM roles, but I've already setup with aws config.  I'll copy the IAM instructions here for future reference:
+```
+If your EC2 instance has an IAM role with the necessary permissions to access DynamoDB, you don’t need to manually configure credentials. Ensure that your IAM role has policies like AmazonDynamoDBFullAccess or more specific permissions if required.
+
+Attach an IAM Role to your EC2 instance:
+Go to the AWS Management Console.
+Navigate to EC2.
+Select your instance.
+Click on "Actions" -> "Security" -> "Modify IAM role".
+Attach a role that has DynamoDB access.
+```
+
+
+
 // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.

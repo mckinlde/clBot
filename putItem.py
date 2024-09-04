@@ -1,60 +1,27 @@
-class listings:
-    """Encapsulates an Amazon DynamoDB table of listing data.
+import boto3
+from boto3.dynamodb.conditions import Key
 
-    Example data structure for a listing record in this table:
-        {
-            "url": "https://seattle.craigslist.org/see/cto/d/seattle-2021-ford-transit-connect/7781874621.html",
-            "area": "seattle",
-            "info": {
-                "directors": ["Sam Raimi"],
-                "release_date": "1999-09-15T00:00:00Z",
-                "rating": 6.3,
-                "plot": "A washed up pitcher flashes through his career.",
-                "rank": 4987,
-                "running_time_secs": 8220,
-                "actors": [
-                    "Kevin Costner",
-                    "Kelly Preston",
-                    "John C. Reilly"
-                ]
-            }
-        }
-    """
+# Initialize a session using Amazon DynamoDB
+session = boto3.Session(region_name='us-west-2')  # Replace with your region
+dynamodb = session.resource('dynamodb')
 
-    def __init__(self, dyn_resource):
-        """
-        :param dyn_resource: A Boto3 DynamoDB resource.
-        """
-        self.dyn_resource = dyn_resource
-        # The table variable is set during the scenario in the call to
-        # 'exists' if the table exists. Otherwise, it is set by 'create_table'.
-        self.table = None
+# Select your DynamoDB table
+table = dynamodb.Table('cars')  # Replace with your table name
 
+# Example of inserting an item
+table.put_item(
+    Item={
+        'PrimaryKey': 'url',  # Replace with your primary key
+        'Attribute1': 'value1',
+        'Attribute2': 'value2'
+    }
+)
 
-    def add_listing(self, url, area, plot, rating):
-        """
-        Adds a listing to the table.
+# Example of querying items
+response = table.query(
+    KeyConditionExpression=Key('PrimaryKey').eq('url')  # Replace with your key condition
+)
 
-        :param url: The url of the listing.
-        :param area: The release year of the listing.
-        :param plot: The plot summary of the listing.
-        :param rating: The quality rating of the listing.
-        """
-        try:
-            self.table.put_item(
-                Item={
-                    "url": url,
-                    "area": area,
-                    "info": {"plot": plot, "rating": Decimal(str(rating))},
-                }
-            )
-        except ClientError as err:
-            logger.error(
-                "Couldn't add listing %s to table %s. Here's why: %s: %s",
-                title,
-                self.table.name,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
-            raise
-
+items = response['Items']
+for item in items:
+    print(item)
