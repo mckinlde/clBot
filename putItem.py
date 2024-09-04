@@ -11,7 +11,8 @@ table = dynamodb.Table('cars')  # Replace with your table name
 # Example of inserting an item
 table.put_item(
     Item={
-        'url': 'example',  # Replace with your primary key
+        'url': 'example_url',  # Replace with your primary key
+        'area': 'example_area'
         'Attribute1': 'value1',
         'Attribute2': 'value2'
     }
