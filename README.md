@@ -77,6 +77,14 @@ chmod +x setup_selenium.sh
 ./setup_selenium.sh
 ```
 
+That script will create a file 'selenium_test.py', and we can run it to check that everything worked correctly:
+
+```python3 selenium_test.py```
+
+The expected output is:
+
+> Google
+
 // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.
