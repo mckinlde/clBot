@@ -5,21 +5,39 @@ You can read about why this is a bad idea here: https://singlepaynews.com/feed/1
 
 But apparently I just can't help myself.
 
+First, I launch an ec2 instance.  I use the Jenkins .pem and default security group.  Yes I have to set these, 'default' behavior is to create a new security group.
+
+Then I connect to it from my local terminal:
+
+```cd /Users/douglasmckinley/Downloads/```
+
+```chmod 400 "Jenkins.pem"```
+
+```ssh -i "Jenkins.pem" ec2-34-219-110-211.us-west-2.compute.amazonaws.com```
+
+// ------------------------------------------------------------------------------------------
+
 First, I set up a VPC endpoint bc I assume I need that.
+
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/vpc-endpoints-dynamodb.html#vpc-endpoints-dynamodb-tutorial.configure-ec2-instance
 
 But honestly idk that I do--so now I'm Googling 'insert to dynamoDB from EC2'.
+
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-2.html
 
 
 // -------------------------------------------------------------------------------
+
 //  I set up a VPC endpoint bc I assume I need that
+
 // -------------------------------------------------------------------------------
 
 https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/vpc-endpoints-dynamodb.html#vpc-endpoints-dynamodb-tutorial.configure-ec2-instance
 
 cd /Users/douglasmckinley/Downloads/
+
 chmod 400 "Jenkins.pem"
+
 ssh -i "Jenkins.pem" ec2-user@ec2-54-149-50-230.us-west-2.compute.amazonaws.com
 
 AWS Access Key ID [None]: -
