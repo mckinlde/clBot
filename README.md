@@ -34,11 +34,35 @@ I can also use scp to transfer files
 
 Okay but finally I am ssh'd in to the ec2 instance.
 
-I want to have [chrome webdriver stuff](https://googlechromelabs.github.io/chrome-for-testing/#stable) so I use wget:
+Now we're ready to pull our git repo and start making things repeatable with shell scripts.
 
-```wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.119/linux64/chrome-linux64.zip```
+```
+#!/bin/bash
 
-```wget https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.119/linux64/chromedriver-linux64.zip```
+# Update the package list and install Git
+sudo yum update -y
+sudo yum install git -y
+
+# Verify Git installation
+git --version
+
+# Configure Git
+git config --global user.name "mckinlde"
+git config --global user.email "douglas.e.mckinley@gmail.com"
+
+# Generate SSH key for GitHub
+ssh-keygen -t ed25519 -C "douglas.e.mckinley@gmail.com" -f ~/.ssh/id_ed25519 -N ""
+
+# Add the generated SSH key to the authorized keys
+cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+
+# Display the SSH key so you can add it to GitHub
+echo "Your new SSH key (copy this to GitHub):"
+cat ~/.ssh/id_ed25519.pub
+
+# Clone the GitHub repository
+git clone git@github.com:mckinlde/clBot.git
+```
 
 // ------------------------------------------------------------------------------------------
 
