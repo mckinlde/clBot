@@ -102,6 +102,18 @@ I use the [DynamoDB console](https://us-west-2.console.aws.amazon.com/dynamodbv2
 
 I may have my keys backwards but who cares I'll make a new one.
 
+I try to use a .py file, and then a command line, and neither work.  Apparently I first need to configure credentials, so in aws command line:
+
+```aws configure```
+
+And then input to prompts:
+
+```
+AWS Access Key ID [None]: -snip-
+AWS Secret Access Key [None]: -snip-
+Default region name [None]: us-west-2
+Default output format [None]: 
+```
 
 
 // ------------------------------------------------------------------------------------------

@@ -59,3 +59,7 @@ class listings:
             raise
 
 
+aws dynamodb put-item \
+    --table-name cars  \
+    --item \
+        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}, "Awards": {"N": "1"}}'
