@@ -5,13 +5,20 @@ You can read about why this is a bad idea here: https://singlepaynews.com/feed/1
 
 But apparently I just can't help myself.
 
-First, I launch an ec2 instance.  I use the Jenkins .pem and default security group.  Yes I have to set these, 'default' behavior is to create a new security group.
+First, I launch an ec2 instance.  I use:
+- the Jenkins .pem,
+- default security group for the VPC
+- and add the security group that allows me to ssh from home.
+
+Yes I have to set these, 'default' behavior is to create a new security group without VPC or ssh access.
 
 Then I connect to it from my local terminal:
 
 ```cd /Users/douglasmckinley/Downloads/```
 
 ```chmod 400 "Jenkins.pem"```
+
+> ssh -i "Jenkins.pem" <Public IPv4 DNS>
 
 ```ssh -i "Jenkins.pem" ec2-34-219-110-211.us-west-2.compute.amazonaws.com```
 
