@@ -95,6 +95,15 @@ The script I have now running locally uses a sql table and runs with a browser w
 
 I think chatGPT can make the existing script run headlessly; so I'm going to focus on getting this ec2 to write to a dynamoDB table so that I have it ready to go.
 
+
+# 4. Creating a DymanoDB table
+
+I use the [DynamoDB console](https://us-west-2.console.aws.amazon.com/dynamodbv2/home?region=us-west-2#create-table) to create a table named 'cars' with Partition Key 'url' and Sort Key 'area'
+
+I may have my keys backwards but who cares I'll make a new one.
+
+
+
 // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.
