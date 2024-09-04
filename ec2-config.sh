@@ -27,15 +27,26 @@ node -e "console.log('Running Node.js ' + process.version)"
 # Install Chrome (browser first, then webdriver to match browser version)
 cd ../../
 cd tmp
+curl https://intoli.com/install-google-chrome.sh | bash
+sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+google-chrome — version && which google-chrome
 sudo wget https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
 sudo unzip chromedriver_linux64.zip
 sudo mv chromedriver /usr/bin/chromedriver
 chromedriver --version
 # ChromeDriver 80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882})
+sudo wget https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
 
 # Testing example_script
-node clBot/example_script.spec.js
+node example_script.spec.js
 #start firstTest()
 # Error: Unable to obtain browser driver.
 #         For more information on how to install drivers see
 #
+
+
+## This has overall gotten too frusturating to do with EC2.  I'm just gonna set it up locally.
+
+## My current step is setting up chrome//chromedriver so I can use them to run selenium
