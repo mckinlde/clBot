@@ -244,6 +244,9 @@ def process_frontpage(area, driver, get_soup_from_url, extract_frontpage_links, 
         f'https://{area}.craigslist.org/search/cta?purveyor=owner#search=1~gallery~0~0'
     )
 
+    # Why do you break on dothan?
+    print(f'https://{area}.craigslist.org/search/cta?purveyor=owner#search=1~gallery~0~0')
+
     # Extract links from the front page
     links = extract_frontpage_links(frontpage_soup)
 
