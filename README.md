@@ -169,10 +169,11 @@ There are 2 ways I want to improve the system rn:
 1 can be done manually, so I'll focus on 2 first.
 
 Importantly, I got this error from the script running on ec2:
+```
 raise error_class(parsed_response, operation_name)
 botocore.errorfactory.ProvisionedThroughputExceededException: An error occurred (ProvisionedThroughputExceededException) when calling the PutItem operation (reached max retries: 9): The level of configured provisioned throughput for the table was exceeded. Consider increasing your provisioning level with the UpdateTable API.
-
-// ------------------------------------------------------------------------------------------
+```
+# // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.
 
