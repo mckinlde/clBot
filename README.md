@@ -154,19 +154,19 @@ Now I'm ready to make da scraper.
 
 # 5. Scraping the web
 
-I have a script I could convert, but it may be easier to start from the script I have
+seattle_cars.py should be renamed, because it currently check all areas of craigslist, following this logic:
 
-And after setting it up (seattle_cars.py), turns out it's pretty simple to just get the links.
+1. get all the listings from this area that are still active
+    2. check to see if they should be updated, update if so
+3. get all the listings from this area's frontpage
+    4. check to see if they should be updated (should always pass, unless something is already a scam or whatever)
+    5. add them to dynamo
 
-There are 2 ways I want to improve the system rn:
-1. have a different ec2 scraping each area of craigslist
-2. have the scraper query listings from it's area to qualify/check/update
+There are 420 areas of CL, and at most 120 links from each frontpage, and I sleep 3 seconds for each driver.get()
 
-1 will be making the setup so far (bash scripts) programatic, and probably involve IAM roles to do it correctly
+420(areas) * 120(links) * 3(sec) / 3600(sec/hour) = 42 hours to read the country
 
-2 will be changes to the seattle_cars.py script
-
-1 can be done manually, so I'll focus on 2 first.
+Which brings us to
 
 # 6. Scaling
 
@@ -177,6 +177,10 @@ botocore.errorfactory.ProvisionedThroughputExceededException: An error occurred 
 ```
 
 I thought I was gonna do stuff to set up autoscaling, but turns out it's out-of-the-box with dynamoDB since 2017, so I just used console to set a higher maximum
+
+The remaining meaningful way to scale is to have more EC2s that check CL.  That way I can check fewer areas, and have a faster than 42 hours turnaround.
+
+Ideally these ec2s have different IPs as well, so CL doesn't get upset.
 
 
 # // ------------------------------------------------------------------------------------------
