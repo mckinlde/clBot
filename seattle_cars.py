@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # for writing to dynamoDB
-from boto3 import dynamodb
+import boto3
 from boto3.dynamodb.conditions import Key
 # for sending emails
 import smtplib
@@ -29,6 +29,10 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 # Set up ChromeDriver
 service = Service("/usr/local/bin/chromedriver")
 driver = webdriver.Chrome(service=service, options=chrome_options)
+
+# Initialize a session using Amazon DynamoDB
+session = boto3.Session(region_name='us-west-2')  # Replace with your region
+dynamodb = session.resource('dynamodb')
 
 # Select your DynamoDB table
 table = dynamodb.Table('cars')  # Replace with your table name
