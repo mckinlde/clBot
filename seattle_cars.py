@@ -123,7 +123,7 @@ for link in links:
         'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
         'status': 'active',
         'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
-        'soup': driver.get(link)
+        'listing_html': driver.get(link)
     }
 )
 
