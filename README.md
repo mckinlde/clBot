@@ -156,6 +156,17 @@ Now I'm ready to make da scraper.
 
 I have a script I could convert, but it may be easier to start from the script I have
 
+And after setting it up (seattle_cars.py), turns out it's pretty simple to just get the links.
+
+There are 2 ways I want to improve the system rn:
+1. have a different ec2 scraping each area of craigslist
+2. have the scraper query listings from it's area to qualify/check/update
+
+1 will be making the setup so far (bash scripts) programatic, and probably involve IAM roles to do it correctly
+
+2 will be changes to the seattle_cars.py script
+
+1 can be done manually, so I'll focus on 2 first.
 
 // ------------------------------------------------------------------------------------------
 
