@@ -116,7 +116,6 @@ for link in links:
     i=i+1
     print('link: ', link)
     print(i, ' out of ', len(links))
-    soup = get_soup_from_url(driver, link)
     table.put_item(
     Item={
         'url': link,  # primary key (partition key)
@@ -124,7 +123,7 @@ for link in links:
         'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
         'status': 'active',
         'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
-        'soup': soup
+        'soup': driver.get(link)
     }
 )
 
