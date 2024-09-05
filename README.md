@@ -39,6 +39,8 @@ Okay but finally I am ssh'd in to the ec2 instance.
 
 Now we're ready to pull our git repo and start making things repeatable with shell scripts.
 
+I've kinda moved past this step, but [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux&tool=webui) are the [links](https://github.com/settings/keys) for configuring GitHub ssh keys
+
 ```
 #!/bin/bash
 
