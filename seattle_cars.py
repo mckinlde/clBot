@@ -117,9 +117,9 @@ for link in links:
     Item={
         'url': link,  # primary key (partition key)
         'area': 'seattle', # Sort key
-        'added': datetime.datetime.now(),
+        'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
         'status': 'active',
-        'updated': datetime.datetime.now(),
+        'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
         'soup': soup
     }
 )
