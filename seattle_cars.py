@@ -111,7 +111,11 @@ for item in items:
 frontpage_soup = get_soup_from_url(driver, 'https://seattle.craigslist.org/search/cta?purveyor=owner#search=1~gallery~0~0')
 links = extract_frontpage_links(frontpage_soup)
 
+i = 0
 for link in links:
+    i=i+1
+    print('link: ', link)
+    print(i, ' out of ', len(links))
     soup = get_soup_from_url(driver, link)
     table.put_item(
     Item={
