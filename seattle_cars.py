@@ -242,7 +242,7 @@ def process_frontpage(area, driver, get_soup_from_url, extract_frontpage_links, 
     new_listings_count = 0
 
     for i, link in enumerate(links, start=1):
-        print('area: ', area)
+        print('Processing frontpage: ', area)
         print('link: ', link)
         print(i, ' of ', len(links))
         # Get HTML content from the link
@@ -273,7 +273,7 @@ def update_existing_listings(existing_listings, area, driver, get_html_from_url,
     listings_checked_count = 0
 
     for i, link in enumerate(existing_listings, start=1):
-        print('area: ', area)
+        print('Updating Existing: ', area)
         print('link: ', link)
         print(i, ' of ', len(existing_listings))
         # Get HTML content from the link
