@@ -62,5 +62,7 @@ EOL
 # Run the Selenium test
 python3 selenium_test.py
 
-# Install boto3 to write to dynamoDB with python
+# Install boto3 to write to dynamoDB with python TODO: this but in ec2-setup.sh
 pip3 install boto3
+pip install bs4
+aws configure
