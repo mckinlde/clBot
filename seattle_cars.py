@@ -125,29 +125,29 @@ def send_mail(to, from_addr, subject, text):
     s.quit()
 
 
-def check_listing_status(soup):
+def check_listing_activity(soup):
     # Check if the listing is as expected
     if soup.find("span", attrs={"class": "postingtitletext"}) is not None:
-        return {'is_expected': True, 'status': 'listing as expected'}
+        return {'is_expected': True, 'activity': 'listing as expected'}
 
     # Check if the listing has been removed by the author
     if 'this posting has been deleted by its author' in soup.get_text().lower():
-        return {'is_expected': False, 'status': 'removed by author'}
+        return {'is_expected': False, 'activity': 'removed by author'}
 
     # Check if the listing has been flagged
     elif 'this posting has been flagged for removal' in soup.get_text().lower():
-        return {'is_expected': False, 'status': 'listing flagged'}
+        return {'is_expected': False, 'activity': 'listing flagged'}
 
     # Check if the listing has 404'd
     elif '404 error' in soup.get_text().lower():
-        return {'is_expected': False, 'status': 'listing 404'}
+        return {'is_expected': False, 'activity': 'listing 404'}
 
     # Check if the listing has expired
     if 'this posting has expired' in soup.get_text().lower():
-        return {'is_expected': False, 'status': 'expired'}
+        return {'is_expected': False, 'activity': 'expired'}
 
     # If none of the above cases match
-    return {'is_expected': False, 'status': 'unknown'}
+    return {'is_expected': False, 'activity': 'unknown'}
 
 
 def soup_from_html(page_html):
@@ -170,7 +170,7 @@ items = response['Items']
 
 for item in items:
     print(item)
-    #print(check_listing_status(soup_from_html(item)))
+    #print(check_listing_activity(soup_from_html(item)))
 
 frontpage_soup = (
     get_soup_from_url(driver,
@@ -185,14 +185,14 @@ for link in links:
     print('link: ', link)
     print(i, ' out of ', len(links))
     link_html = get_html_from_url(driver, link)
-    listing_status = check_listing_status(soup_from_html(link_html))
-    if listing_status['is_expected']:
+    listing_activity = check_listing_activity(soup_from_html(link_html))
+    if listing_activity['is_expected']:
         table.put_item(
             Item={
                 'area': 'seattle',  # primary key (partition key)
                 'url': link,  # Sort key
                 'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
-                'status': 'active',
+                'activity': 'active',
                 'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
                 'listing_html': link_html
             }
@@ -200,8 +200,8 @@ for link in links:
     else:
         table.update_item(
                 Key={"area": area, "url": link},
-                UpdateExpression="set status=:s, updated=:u",
-                ExpressionAttributeValues={":s": listing_status['status'], ":u": datetime.datetime.now().isoformat()},
+                UpdateExpression="set activity=:s, updated=:u",
+                ExpressionAttributeValues={":s": listing_activity['activity'], ":u": datetime.datetime.now().isoformat()},
                 ReturnValues="UPDATED_NEW",
             )
 
