@@ -338,20 +338,45 @@ for area in areas:
 
     endTime_of_area = datetime.datetime.now()
 
-    send_mail('douglasemckinley@gmail.com', 'johnnygooddeals@gmail.com',
-              'ec2 {area} finished, updated: {updated}, processed: {processed}, timeDelta: {areaDeltaT}'.format(
-                  area, updated, processed, (startTime_of_area-endTime_of_area)),
-              'ec2 {area} finished, updated: {updated}, processed: {processed}, timeDelta: {areaDeltaT}'.format(
-                  area, updated, processed, (startTime_of_area-endTime_of_area))
-              )
+    # Calculate the time delta
+    areaDeltaT = endTime_of_area - startTime_of_area
+
+    # Send mail with formatted string
+    send_mail(
+        'douglasemckinley@gmail.com',
+        'johnnygooddeals@gmail.com',
+        'ec2 {area} finished, updated: {updated}, processed: {processed}, timeDelta: {areaDeltaT}'.format(
+            area=area,
+            updated=updated,
+            processed=processed,
+            areaDeltaT=areaDeltaT
+        ),
+        'ec2 {area} finished, updated: {updated}, processed: {processed}, timeDelta: {areaDeltaT}'.format(
+            area=area,
+            updated=updated,
+            processed=processed,
+            areaDeltaT=areaDeltaT
+        )
+    )
 
 endTime_of_country = datetime.datetime.now()
 
 driver.quit()
 
-send_mail('douglasemckinley@gmail.com', 'johnnygooddeals@gmail.com',
-          'ec2 all areas finished, timeDelta: {countryDeltaT}'.format(startTime_of_country-endTime_of_country),
-          'wahoo')
+# Calculate the time delta
+countryDeltaT = startTime_of_country - endTime_of_country
+
+# Send mail with formatted string
+send_mail(
+    'douglasemckinley@gmail.com',
+    'johnnygooddeals@gmail.com',
+    'all areas finished, timeDelta: {countryDeltaT}'.format(
+        countryDeltaT=countryDeltaT
+    ),
+    'all areas finished, timeDelta: {countryDeltaT}'.format(
+        countryDeltaT=countryDeltaT
+    )
+)
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
