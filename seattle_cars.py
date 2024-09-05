@@ -37,7 +37,7 @@ session = boto3.Session(region_name='us-west-2')  # Replace with your region
 dynamodb = session.resource('dynamodb')
 
 # Select your DynamoDB table
-table = dynamodb.Table('cars')  # Replace with your table name
+table = dynamodb.Table('listings')  # Replace with your table name
 
 # Set your CL area
 area = 'seattle'
@@ -189,8 +189,8 @@ for link in links:
     if listing_status['is_expected']:
         table.put_item(
             Item={
-                'url': link,  # primary key (partition key)
-                'area': 'seattle',  # Sort key
+                'area': 'seattle',  # primary key (partition key)
+                'url': link,  # Sort key
                 'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
                 'status': 'active',
                 'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
@@ -199,7 +199,7 @@ for link in links:
         )
     else:
         table.update_item(
-                Key={"url": link, "area": area},
+                Key={"area": area, "url": link},
                 UpdateExpression="set status=:s, updated=:u",
                 ExpressionAttributeValues={":s": listing_status['status'], ":u": datetime.datetime.now().isoformat()},
                 ReturnValues="UPDATED_NEW",
