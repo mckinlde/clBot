@@ -64,6 +64,25 @@ def get_soup_from_url(driver, url, timeout=10):
         return f"Error: {str(e)}"
 
 
+def get_html_from_url(driver, url, timeout=10):
+    try:
+        # Navigate to the specified URL
+        driver.get(url)
+
+        # Explicitly wait for an element to be present (you can adjust the condition based on your needs)
+        WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'body'))
+        )
+
+        sleep(3)
+        # Get the HTML content after waiting
+        page_html = driver.page_source
+        return page_html
+    except Exception as e:
+        # Return the error if any
+        return f"Error: {str(e)}"
+
+
 def write_soup_to_file(soup, file_name):
     with open('html_captures/' + file_name, "w") as f:
         f.write(soup.prettify())
@@ -115,10 +134,10 @@ links = extract_frontpage_links(frontpage_soup)
 
 i = 0
 for link in links:
-    sleep(1+random.randint(0,2))
     i=i+1
     print('link: ', link)
     print(i, ' out of ', len(links))
+    link_html = get_html_from_url(driver, link)
     table.put_item(
     Item={
         'url': link,  # primary key (partition key)
@@ -126,7 +145,7 @@ for link in links:
         'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
         'status': 'active',
         'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
-        'listing_html': driver.get(link)
+        'listing_html': link_html
     }
 )
 
