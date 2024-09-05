@@ -1,4 +1,6 @@
 # for running a headless webdriver
+import random
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -113,6 +115,7 @@ links = extract_frontpage_links(frontpage_soup)
 
 i = 0
 for link in links:
+    sleep(1+random.randint(0,2))
     i=i+1
     print('link: ', link)
     print(i, ' out of ', len(links))
