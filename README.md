@@ -182,6 +182,16 @@ The remaining meaningful way to scale is to have more EC2s that check CL.  That 
 
 Ideally these ec2s have different IPs as well, so CL doesn't get upset.
 
+Here's what I think I should do:
+1. create a new ec2 with the console
+2. follow this repo's setup notes (README.md, setup_git.sh, setup_selenium.sh) to prep for a scraper
+3. run a duplicate seattle_cars.py from the new ec2 instance (dividing the area = [] list between them)
+
+Intuitively 1 more instance means 2x as much scraping, or 21 hours to get the full country
+
+I want to assume they operate from different IPs, but I'm not sure
+
+So while I go take a break, the thing to google is "IP of different ec2 instances in the same VPC"
 
 # // ------------------------------------------------------------------------------------------
 
