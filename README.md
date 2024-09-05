@@ -176,7 +176,9 @@ raise error_class(parsed_response, operation_name)
 botocore.errorfactory.ProvisionedThroughputExceededException: An error occurred (ProvisionedThroughputExceededException) when calling the PutItem operation (reached max retries: 9): The level of configured provisioned throughput for the table was exceeded. Consider increasing your provisioning level with the UpdateTable API.
 ```
 
-That's just one ec2 instance already overwhelming my dynamoDB!  Time to set up [autoscaling](https://dynamic-dynamodb.readthedocs.io/en/latest/index.html?highlight=dynamic-dynamodb).
+I thought I was gonna do stuff to set up autoscaling, but turns out it's out-of-the-box with dynamoDB since 2017, so I just used console to set a higher maximum
+
+
 # // ------------------------------------------------------------------------------------------
 
 First, I set up a VPC endpoint bc I assume I need that.
