@@ -39,7 +39,7 @@ dynamodb = session.resource('dynamodb')
 table = dynamodb.Table('listings')  # Replace with your table name
 
 # Set your CL area
-areas = [
+areas1 = [
     "auburn", "bham", "dothan", "shoals", "gadsden", "huntsville", "mobile", "montgomery", "tuscaloosa",
     "anchorage", "fairbanks", "kenai", "juneau", "flagstaff", "mohave", "phoenix", "prescott", "showlow",
     "sierravista", "tucson", "yuma", "fayar", "fortsmith", "jonesboro", "littlerock", "texarkana",
@@ -50,7 +50,9 @@ areas = [
     "fortcollins", "rockies", "pueblo", "westslope", "newlondon", "hartford", "newhaven", "nwct",
     "delaware", "washingtondc", "miami", "daytona", "keys", "miami", "fortmyers", "gainesville", "cfl",
     "jacksonville", "lakeland", "miami", "lakecity", "ocala", "okaloosa", "orlando", "panamacity",
-    "pensacola", "sarasota", "miami", "spacecoast", "staugustine", "tallahassee", "tampa", "treasure",
+    "pensacola", "sarasota", "miami", "spacecoast", "staugustine", "tallahassee", "tampa", "treasure"
+]
+areas2 = [
     "miami", "albanyga", "athensga", "atlanta", "augusta", "brunswick", "columbusga", "macon", "nwga",
     "savannah", "statesboro", "valdosta", "honolulu", "boise", "eastidaho", "lewiston", "twinfalls",
     "bn", "chambana", "chicago", "decatur", "lasalle", "mattoon", "peoria", "rockford", "carbondale",
@@ -61,7 +63,9 @@ areas = [
     "lexington", "louisville", "owensboro", "westky", "batonrouge", "cenla", "houma", "lafayette",
     "lakecharles", "monroe", "neworleans", "shreveport", "maine", "annapolis", "baltimore", "easternshore",
     "frederick", "smd", "westmd", "boston", "capecod", "southcoast", "westernmass", "worcester",
-    "annarbor", "battlecreek", "centralmich", "detroit", "flint", "grandrapids", "holland", "jxn",
+    "annarbor", "battlecreek", "centralmich", "detroit", "flint", "grandrapids", "holland", "jxn"
+]
+areas3 = [
     "kalamazoo", "lansing", "monroemi", "muskegon", "nmi", "porthuron", "saginaw", "swmi", "thumb", "up",
     "bemidji", "brainerd", "duluth", "mankato", "minneapolis", "rmn", "marshall", "stcloud", "gulfport",
     "hattiesburg", "jackson", "meridian", "northmiss", "natchez", "columbiamo", "joplin", "kansascity",
@@ -71,7 +75,9 @@ areas = [
     "southjersey", "albuquerque", "clovis", "farmington", "lascruces", "roswell", "santafe", "albany",
     "binghamton", "buffalo", "catskills", "chautauqua", "elmira", "fingerlakes", "glensfalls",
     "hudsonvalley", "ithaca", "longisland", "newyork", "oneonta", "plattsburgh", "potsdam", "rochester",
-    "syracuse", "twintiers", "utica", "watertown", "asheville", "boone", "charlotte", "eastnc",
+    "syracuse", "twintiers", "utica", "watertown", "asheville", "boone", "charlotte", "eastnc"
+]
+areas4 = [
     "fayetteville", "greensboro", "hickory", "onslow", "outerbanks", "raleigh", "wilmington",
     "winstonsalem", "bismarck", "fargo", "grandforks", "nd", "akroncanton", "ashtabula", "athensohio",
     "chillicothe", "cincinnati", "cleveland", "columbus", "dayton", "limaohio", "mansfield", "sandusky",
@@ -81,7 +87,9 @@ areas = [
     "meadville", "philadelphia", "pittsburgh", "poconos", "reading", "scranton", "pennstate",
     "williamsport", "york", "providence", "charleston", "columbia", "florencesc", "greenville",
     "hiltonhead", "myrtlebeach", "nesd", "csd", "rapidcity", "siouxfalls", "sd", "chattanooga",
-    "clarksville", "cookeville", "jacksontn", "knoxville", "memphis", "nashville", "tricities",
+    "clarksville", "cookeville", "jacksontn", "knoxville", "memphis", "nashville", "tricities"
+]
+areas5 = [
     "abilene", "amarillo", "austin", "beaumont", "brownsville", "collegestation", "corpuschristi",
     "dallas", "nacogdoches", "delrio", "elpaso", "galveston", "houston", "killeen", "laredo",
     "lubbock", "mcallen", "odessa", "sanangelo", "sanantonio", "sanmarcos", "bigbend", "texoma",
@@ -306,6 +314,29 @@ def update_existing_listings(existing_listings, area, driver, get_html_from_url,
 # -----------------------------------------------------------------------------
 # LOOP
 # -----------------------------------------------------------------------------
+# Prompt user for area set selection
+print("Select an area set:")
+print("1. Set 1")
+print("2. Set 2")
+print("3. Set 3")
+print("4. Set 4")
+print("5. Set 5")
+
+choice = input("Enter the number of your choice: ")
+
+if choice == '1':
+    areas = areas1
+elif choice == '2':
+    areas = areas2
+elif choice == '3':
+    areas = areas3
+elif choice == '4':
+    areas = areas4
+elif choice == '5':
+    areas = areas5
+else:
+    print("Invalid choice. Defaulting to Set 1.")
+    areas = areas1
 
 startTime_of_country = datetime.datetime.now()
 
