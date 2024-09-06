@@ -180,18 +180,16 @@ I thought I was gonna do stuff to set up autoscaling, but turns out it's out-of-
 
 The remaining meaningful way to scale is to have more EC2s that check CL.  That way I can check fewer areas, and have a faster than 42 hours turnaround.
 
-Ideally these ec2s have different IPs as well, so CL doesn't get upset.
+Turns out that's also pretty simple, just create new ec2's and repeat the steps so far.  I've since added to the seattle_cars.py script to split the list of areas up and make them selectable.  After trying that out for a day I've moved on to running them automatically with chron, and you can check [running automagically with chronjobs.md](https://github.com/mckinlde/clBot/blob/main/running%20automagically%20with%20chronjobs.md) for instructions on setting that up as well.
 
-Here's what I think I should do:
-1. create a new ec2 with the console
-2. follow this repo's setup notes (README.md, setup_git.sh, setup_selenium.sh) to prep for a scraper
-3. run a duplicate seattle_cars.py from the new ec2 instance (dividing the area = [] list between them)
+From here I think I'm basically done with the scraping side, and this repo as of now is a pretty great boilerplate for setting up ec2s that talk to a dynamoDB and do things automatically with chron; which is not a useless thing.
 
-Intuitively 1 more instance means 2x as much scraping, or 21 hours to get the full country
-
-I want to assume they operate from different IPs, but I'm not sure
-
-So while I go take a break, the thing to google is "IP of different ec2 instances in the same VPC"
+Future work will be:
+1. getting data from dynamoDB into a structured RDBMS so that I can surface a fancy dashboard (probably in a new repo)
+2. training a classifier to predict which new listings are good deals that sell fast (probably also in a new repo, but maybe the same as #1)
+3. setting up an email alert for those listings (probably back in this repo by editing seattle_cars.py)
+4. setting up a website where you can pay to sign up for email alerts in your area (though everyone seems to ask about specific car models, so maybe I sell that instead)
+5. selling access to the dashboard / the raw data itself to KBB?  who knows
 
 # // ------------------------------------------------------------------------------------------
 
