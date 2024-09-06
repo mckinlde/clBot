@@ -50,27 +50,13 @@ Here’s how to set it up:
 
    Replace `"Your specific prompt or question here"` with the actual prompt that the script shows when asking for input.
 
-   ```bash
-   #!/usr/bin/expect -f
-
-   # Start the Python script
-   spawn python3 /path/to/your/script/clot/seattle_cars.py
-
-   # Wait for the prompt where it asks for input
-   expect "Select an area set:
+   ```Select an area set:
 1. Set 1
 2. Set 2
 3. Set 3
 4. Set 4
 5. Set 5
-Enter the number of your choice:"  # Replace this with the actual text that the script displays when it asks for input
-
-   # Send the input "1"
-   send "1\r"
-
-   # Continue running the script
-   expect eof
-   ```
+Enter the number of your choice: ```
 
 4. **Make the script executable**:
 
