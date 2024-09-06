@@ -1,3 +1,35 @@
+If you are receiving the error `-bash: crontab: command not found`, it means that `cron` is not installed on your EC2 instance. To resolve this, you need to install the `cron` package. Here’s how you can do that based on your EC2 instance's operating system:
+
+### For Amazon Linux or Red Hat-based systems (such as CentOS or Fedora):
+
+1. **Install `cron`**:
+
+   ```bash
+   sudo yum install cronie -y
+   ```
+
+2. **Start the `cron` service**:
+
+   After installation, start the `cron` service:
+
+   ```bash
+   sudo service crond start
+   ```
+
+3. **Enable `cron` to start on boot**:
+
+   ```bash
+   sudo chkconfig crond on
+   ```
+
+4. **Verify the installation**:
+
+   You can verify if `cron` is running by checking its status:
+
+   ```bash
+   sudo service crond status
+   ```
+
 If your script doesn't ask for input immediately but later on in the execution, the `echo "1"` method might not work as expected, since it provides the input right at the start of the script.
 
 ### Solution: Use `expect` to interact with the script
