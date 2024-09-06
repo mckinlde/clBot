@@ -318,14 +318,9 @@ def update_existing_listings(existing_listings, area, driver, get_html_from_url,
 # LOOP
 # -----------------------------------------------------------------------------
 # Prompt user for area set selection
-print("Select an area set:")
-print("1. Set 1")
-print("2. Set 2")
-print("3. Set 3")
-print("4. Set 4")
-print("5. Set 5")
+print("Area sets 1-5 avaliable")
 
-choice = input("Enter the number of your choice: ")
+choice = input("Select an area set:")
 
 if choice == '1':
     areas = areas1
