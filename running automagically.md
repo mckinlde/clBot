@@ -50,7 +50,29 @@ Here’s how to set it up:
 
    Replace `"Your specific prompt or question here"` with the actual prompt that the script shows when asking for input.
 
-3. **Make the script executable**:
+   ```bash
+   #!/usr/bin/expect -f
+
+   # Start the Python script
+   spawn python3 /path/to/your/script/clot/seattle_cars.py
+
+   # Wait for the prompt where it asks for input
+   expect "Select an area set:
+1. Set 1
+2. Set 2
+3. Set 3
+4. Set 4
+5. Set 5
+Enter the number of your choice:"  # Replace this with the actual text that the script displays when it asks for input
+
+   # Send the input "1"
+   send "1\r"
+
+   # Continue running the script
+   expect eof
+   ```
+
+4. **Make the script executable**:
 
    Give the script execution permissions:
 
@@ -58,7 +80,7 @@ Here’s how to set it up:
    chmod +x ~/run_seattle_cars.sh
    ```
 
-4. **Schedule the `expect` script using cron**:
+5. **Schedule the `expect` script using cron**:
 
    Now, update your cron job to run the `expect` script at 12:07 AM:
 
@@ -75,7 +97,7 @@ Here’s how to set it up:
    - `/usr/bin/expect` is the path to the `expect` interpreter.
    - `/home/ec2-user/run_seattle_cars.sh` is the path to your `expect` script.
 
-5. **Save and verify**:
+6. **Save and verify**:
 
    After saving and exiting the crontab, verify that your cron job was added:
 
