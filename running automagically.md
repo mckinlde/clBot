@@ -50,13 +50,15 @@ Here’s how to set it up:
 
    Replace `"Your specific prompt or question here"` with the actual prompt that the script shows when asking for input.
 
-   ```Select an area set:
+```
+Select an area set:
 1. Set 1
 2. Set 2
 3. Set 3
 4. Set 4
 5. Set 5
-Enter the number of your choice: ```
+Enter the number of your choice:
+```
 
 4. **Make the script executable**:
 
