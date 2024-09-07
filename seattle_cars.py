@@ -32,6 +32,11 @@ chrome_options.add_argument("--remote-debugging-port=9222")  # Enable debugging
 chrome_options.add_argument("--disable-software-rasterizer")
 chrome_options.add_argument("--single-process")
 chrome_options.add_argument("--no-zygote")
+# Chrome might be having trouble writing to the default /tmp directory. You can resolve this by specifying a different directory for the Chrome cache.
+chrome_options.add_argument("--user-data-dir=/home/ec2-user/chrome-data")
+chrome_options.add_argument("--disk-cache-dir=/home/ec2-user/chrome-cache")
+# This directs Chrome to use the /home/ec2-user/chrome-data and /home/ec2-user/chrome-cache directories instead of /tmp. You may need to create these directories:
+# mkdir -p /home/ec2-user/chrome-data /home/ec2-user/chrome-cache
 
 
 # Set up ChromeDriver
