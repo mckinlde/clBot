@@ -24,7 +24,7 @@ import datetime
 # SETUP
 # -----------------------------------------------------------------------------
 chrome_options = Options()
-chrome_options.add_argument("--headless=new")  # Run Chrome in the new headless mode
+chrome_options.add_argument("--headless")  # Use the older headless mode
 chrome_options.add_argument("--no-sandbox")  # Required for running as root in many cases
 chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration (optional)
