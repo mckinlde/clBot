@@ -68,7 +68,7 @@ Here’s how to set it up:
    #!/usr/bin/expect -f
 
    # Start the Python script
-   spawn python3 /clBot/seattle_cars.py
+   spawn python3 clBot/seattle_cars.py
 
    # Wait for the prompt where it asks for input
    expect "Select an area set:"  # Replace this with the actual text that the script displays when it asks for input
