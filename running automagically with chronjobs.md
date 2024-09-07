@@ -67,10 +67,13 @@ Here’s how to set it up:
    ```
    #!/usr/bin/expect -f
    
-   # Set timeout to 30 seconds (adjust as needed) 
+   # Enable debugging for expect interactions
+   exp_internal 1
+   
+   # Set timeout to 30 seconds
    set timeout 30
    
-   # Set up logging for the expect interactions (optional, but good for tracking interaction-specific logs)
+   # Set up logging for the expect interactions
    log_file -a /home/ec2-user/seattle_cars_error.log
    
    # Start the Python script and redirect both stdout and stderr to the same log
@@ -78,19 +81,17 @@ Here’s how to set it up:
    
    # Wait for the prompt where it asks for input
    expect {
-       "Select an area set:" {
-           # Send the input “3”
-           send “3\r”
+       -re "Select an area set.*" {
+           # Send the input "5"
+           send "5\r"
        }
        timeout {
            puts "Error: Timed out waiting for 'Select an area set:' prompt"
-           # Close the log file before exiting
            log_file
            exit 1
        }
        eof {
            puts "Error: The script ended unexpectedly"
-           # Close the log file before exiting
            log_file
            exit 1
        }
@@ -99,7 +100,7 @@ Here’s how to set it up:
    # Continue running the script until it finishes
    expect eof
    
-   # Close the log file (optional, but helps ensure logs are written)
+   # Close the log file
    log_file
    ```
 
