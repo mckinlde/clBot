@@ -318,7 +318,7 @@ def update_existing_listings(existing_listings, area, driver, get_html_from_url,
 # LOOP
 # -----------------------------------------------------------------------------
 # Prompt user for area set selection
-print("Area sets 1-5 avaliable")
+# I think this is causeing bugs in 'expect' script print("Area sets 1-5 avaliable")
 
 choice = input("Select an area set:")
 
