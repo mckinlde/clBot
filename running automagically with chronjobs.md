@@ -63,25 +63,46 @@ Here’s how to set it up:
    ```
 
    Add the following content to the script:
+   
+```
+bash
+#!/usr/bin/expect -f
 
-   ```bash
-   #!/usr/bin/expect -f
+# Set up logging for the expect interactions (optional, but good for tracking interaction-specific logs)
+log_file -a /home/ec2-user/seattle_cars_error.log
 
-   # Start the Python script
-   spawn python3 clBot/seattle_cars.py
+# Start the Python script and redirect both stdout and stderr to the same log
+spawn bash -c "python3 clBot/seattle_cars.py >> /home/ec2-user/seattle_cars_error.log 2>&1"
 
-   # Wait for the prompt where it asks for input
-   expect "Select an area set:"  # Replace this with the actual text that the script displays when it asks for input
+# Wait for the prompt where it asks for input
+expect {
+    "Select an area set:" {
+        # Send the input "1"
+        send "1\r"
+    }
+    timeout {
+        puts "Error: Timed out waiting for 'Select an area set:' prompt"
+        # Close the log file before exiting
+        log_file
+        exit 1
+    }
+    eof {
+        puts "Error: The script ended unexpectedly"
+        # Close the log file before exiting
+        log_file
+        exit 1
+    }
+}
 
-   # Send the input "1"
-   send "1\r"
+# Continue running the script until it finishes
+expect eof
 
-   # Continue running the script
-   expect eof
-   ```
+# Close the log file (optional, but helps ensure logs are written)
+log_file
+
 
    Replace `"Select an area set:"` with the actual prompt that the script shows when asking for input.
-
+```
 
 4. **Make the script executable**:
 
