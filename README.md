@@ -191,219 +191,33 @@ Future work will be:
 4. setting up a website where you can pay to sign up for email alerts in your area (though everyone seems to ask about specific car models, so maybe I sell that instead)
 5. selling access to the dashboard / the raw data itself to KBB?  who knows
 
-# // ------------------------------------------------------------------------------------------
+# 7. Maintenance
 
-First, I set up a VPC endpoint bc I assume I need that.
+Everything has broken.  Chrome will no longer launch, and I have switched to geckodriver.  I still want this repo to be boilerplate, so here is the usage:
 
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/vpc-endpoints-dynamodb.html#vpc-endpoints-dynamodb-tutorial.configure-ec2-instance
+To ensure that both `update_cronjob.sh` and `run_seattle_cars.sh` work seamlessly together, a few adjustments are necessary. Here’s a breakdown of the necessary changes and the reasoning behind them:
 
-But honestly idk that I do--so now I'm Googling 'insert to dynamoDB from EC2'.
+### Usage:
 
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-2.html
+- First, run setup_git.sh, then pull this repo.
 
+- Then, run setup_selenium.sh and setup_firefox_and_geckodriver.sh; these should just be installing stuff
 
-// -------------------------------------------------------------------------------
+- Now, run update_cronjob.sh to make a cronjob that will use run_seattle_cars.sh to run seattle_cars.py with a given area selected.  To update the cron job for a specific area set, run the following command:
 
-//  I set up a VPC endpoint bc I assume I need that
+```bash
+./update_cronjob.sh <area_set_number>
+```
 
-// -------------------------------------------------------------------------------
+For example, if you want to set it for area set `3`, you'd run:
 
-https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/vpc-endpoints-dynamodb.html#vpc-endpoints-dynamodb-tutorial.configure-ec2-instance
+```bash
+./update_cronjob.sh 3
+```
 
-cd /Users/douglasmckinley/Downloads/
+This will update the cron job to run `run_seattle_cars.sh 3` at midnight every day.
 
-chmod 400 "Jenkins.pem"
-
-ssh -i "Jenkins.pem" ec2-user@ec2-54-149-50-230.us-west-2.compute.amazonaws.com
-
-AWS Access Key ID [None]: -
-AWS Secret Access Key [None]: -
-Default region name [None]: us-west-2
-Default output format [None]: 
-
-{
-    "Vpcs": [
-        {
-            "CidrBlock": "172.31.0.0/16",
-            "DhcpOptionsId": "dopt-0b791ddfb87131b3a",
-            "State": "available",
-            "VpcId": "vpc-07012e5dc59bf9c6b",
-            "OwnerId": "300293106161",
-            "InstanceTenancy": "default",
-            "CidrBlockAssociationSet": [
-                {
-                    "AssociationId": "vpc-cidr-assoc-04a455e6cdb0cbaa2",
-                    "CidrBlock": "172.31.0.0/16",
-                    "CidrBlockState": {
-                        "State": "associated"
-                    }
-                }
-            ],
-            "IsDefault": true
-        }
-    ]
-}
-
-// --------------------------------------------------------------------------
-//  Looking stuff up
-// --------------------------------------------------------------------------
-
-[ec2-user@ip-172-31-19-249 ~]$ aws ec2 describe-vpcs
-{
-    "Vpcs": [
-        {
-            "CidrBlock": "172.31.0.0/16",
-            "DhcpOptionsId": "dopt-0b791ddfb87131b3a",
-            "State": "available",
-            "VpcId": "vpc-07012e5dc59bf9c6b",
-            "OwnerId": "300293106161",
-            "InstanceTenancy": "default",
-            "CidrBlockAssociationSet": [
-                {
-                    "AssociationId": "vpc-cidr-assoc-04a455e6cdb0cbaa2",
-                    "CidrBlock": "172.31.0.0/16",
-                    "CidrBlockState": {
-                        "State": "associated"
-                    }
-                }
-            ],
-            "IsDefault": true
-        }
-    ]
-}
+Make sure the path to `run_seattle_cars.sh` in the cron job (`/path/to/clBot/run_seattle_cars.sh`) is correct, and the permissions for both scripts are executable (use `chmod +x` on the scripts if needed).
 
 
-[ec2-user@ip-172-31-19-249 ~]$ aws ec2 describe-vpc-endpoint-services
-        {
-            "ServiceName": "com.amazonaws.us-west-2.dynamodb",
-            "ServiceId": "vpce-svc-082c36eceb23cc4e9",
-            "ServiceType": [
-                {
-                    "ServiceType": "Interface"
-                }
-            ],
-            "AvailabilityZones": [
-                "us-west-2a",
-                "us-west-2b",
-                "us-west-2c",
-                "us-west-2d"
-            ],
-            "Owner": "amazon",
-            "BaseEndpointDnsNames": [
-                "dynamodb.us-west-2.vpce.amazonaws.com"
-            ],
-            "VpcEndpointPolicySupported": true,
-            "AcceptanceRequired": false,
-            "ManagesVpcEndpoints": false,
-            "Tags": [],
-            "SupportedIpAddressTypes": [
-                "ipv4"
-            ]
-        },
-        {
-            "ServiceName": "com.amazonaws.us-west-2.dynamodb",
-            "ServiceId": "vpce-svc-06e332dbde3b83af2",
-            "ServiceType": [
-                {
-                    "ServiceType": "Gateway"
-                }
-            ],
-            "AvailabilityZones": [
-                "us-west-2a",
-                "us-west-2b",
-                "us-west-2c",
-                "us-west-2d"
-            ],
-            "Owner": "amazon",
-            "BaseEndpointDnsNames": [
-                "dynamodb.us-west-2.amazonaws.com"
-            ],
-            "VpcEndpointPolicySupported": true,
-            "AcceptanceRequired": false,
-            "ManagesVpcEndpoints": false,
-            "Tags": [],
-            "SupportedIpAddressTypes": [
-                "ipv4"
-            ]
-        },
-
-
-
-[ec2-user@ip-172-31-19-249 ~]$ aws ec2 describe-route-tables
-{
-    "RouteTables": [
-        {
-            "Associations": [
-                {
-                    "Main": true,
-                    "RouteTableAssociationId": "rtbassoc-0275dee2c0f172954",
-                    "RouteTableId": "rtb-0fd40fc791b04b612",
-                    "AssociationState": {
-                        "State": "associated"
-                    }
-                }
-            ],
-            "PropagatingVgws": [],
-            "RouteTableId": "rtb-0fd40fc791b04b612",
-            "Routes": [
-                {
-                    "DestinationCidrBlock": "172.31.0.0/16",
-                    "GatewayId": "local",
-                    "Origin": "CreateRouteTable",
-                    "State": "active"
-                },
-                {
-                    "DestinationCidrBlock": "0.0.0.0/0",
-                    "GatewayId": "igw-06ea5d8f86b334527",
-                    "Origin": "CreateRoute",
-                    "State": "active"
-                }
-            ],
-            "Tags": [],
-            "VpcId": "vpc-07012e5dc59bf9c6b",
-            "OwnerId": "300293106161"
-        }
-    ]
-// --------------------------------------------------------------------------
-//  End of "Looking stuff up"
-// --------------------------------------------------------------------------
-
-
-
-
-aws ec2 create-vpc-endpoint --vpc-id vpc-07012e5dc59bf9c6b --service-name com.amazonaws.us-west-2.dynamodb --route-table-ids rtb-0fd40fc791b04b612
-
-rtb-0fd40fc791b04b612
-vpc-07012e5dc59bf9c6b
-
-[ec2-user@ip-172-31-19-249 ~]$ aws ec2 create-vpc-endpoint --vpc-id vpc-07012e5dc59bf9c6b --service-name com.amazonaws.us-west-2.dynamodb --route-table-ids rtb-0fd40fc791b04b612
-{
-    "VpcEndpoint": {
-        "VpcEndpointId": "vpce-0f6ae454a8f27593b",
-        "VpcEndpointType": "Gateway",
-        "VpcId": "vpc-07012e5dc59bf9c6b",
-        "ServiceName": "com.amazonaws.us-west-2.dynamodb",
-        "State": "available",
-        "PolicyDocument": "{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"*\",\"Resource\":\"*\"}]}",
-        "RouteTableIds": [
-            "rtb-0fd40fc791b04b612"
-        ],
-        "SubnetIds": [],
-        "Groups": [],
-        "PrivateDnsEnabled": false,
-        "RequesterManaged": false,
-        "NetworkInterfaceIds": [],
-        "DnsEntries": [],
-        "CreationTimestamp": "2024-09-04T16:53:04+00:00",
-        "OwnerId": "300293106161"
-    }
-}
-[ec2-user@ip-172-31-19-249 ~]$ aws dynamodb list-tables
-{
-    "TableNames": [
-        "cl-cars"
-    ]
-}
-// -------------------------------------------------------------------------------
-//  End of "I set up a VPC endpoint bc I assume I need that"
-// -------------------------------------------------------------------------------
+# // ----------------------------------------------------------------------
