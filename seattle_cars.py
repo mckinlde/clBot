@@ -34,8 +34,12 @@ firefox_options.add_argument("--no-sandbox")  # Required for running as root
 firefox_options.add_argument("--disable-software-rasterizer")
 
 # Set up FirefoxDriver
+print("Checking for geckodriver in /usr/local/bin")
 service = Service("/usr/local/bin/geckodriver")  # Make sure geckodriver is installed and in this path
+print("Initializing Firefox WebDriver...")
 driver = webdriver.Firefox(service=service, options=firefox_options)
+print("WebDriver initialized successfully!")
+
 
 # After initializing the driver
 print("Driver initialized...")
