@@ -11,6 +11,21 @@ sudo ln -sf /opt/firefox/firefox /usr/local/bin/firefox || { echo "Failed to cre
 # Install necessary libraries
 sudo yum install -y mesa-libGL mesa-libEGL xorg-x11-server-Xvfb libXrender libXcomposite libXcursor libXi libXtst alsa-lib || { echo "Failed to install required libraries"; exit 1; }
 
+sudo yum install -y \
+    dbus-glib \
+    libXt \
+    mesa-libEGL \
+    mesa-libGL \
+    alsa-lib \
+    atk \
+    cups-libs \
+    gtk3 \
+    libXcomposite \
+    libXcursor \
+    libXdamage \
+    libXrandr \
+    xorg-x11-server-Xvfb
+
 # Set up headless mode with Xvfb
 export MOZ_HEADLESS=1
 Xvfb :99 & export DISPLAY=:99
