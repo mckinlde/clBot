@@ -9,19 +9,19 @@ fi
 # Get the area set number from the argument
 AREA_SET=$1
 
-# Define the cronjob entry with the area set
-CRON_JOB="0 0 * * * /path/to/run_seattle_cars.sh $AREA_SET"
+# Define the cronjob entry with the correct path to run_seattle_cars.sh
+CRON_JOB="0 0 * * * /path/to/clBot/run_seattle_cars.sh $AREA_SET"
 
 # Backup existing crontab to avoid data loss
 crontab -l > mycron_backup
 
 # Check if the cron job already exists
-if crontab -l | grep -q "/path/to/run_seattle_cars.sh"; then
+if crontab -l | grep -q "/path/to/clBot/run_seattle_cars.sh"; then
   # Update the existing cronjob
-  crontab -l | sed "s|/path/to/run_seattle_cars.sh .*|$CRON_JOB|" > mycron
+  crontab -l | sed "s|/path/to/clBot/run_seattle_cars.sh .*|$CRON_JOB|" > mycron
 else
   # Add the new cronjob
-  (crontab -l; echo "$CRON_JOB") | crontab -
+  (crontab -l; echo "$CRON_JOB") > mycron
 fi
 
 # Install the new cron file
