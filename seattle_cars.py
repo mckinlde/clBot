@@ -37,6 +37,27 @@ firefox_options.add_argument("--disable-software-rasterizer")
 service = Service("/usr/local/bin/geckodriver")  # Make sure geckodriver is installed and in this path
 driver = webdriver.Firefox(service=service, options=firefox_options)
 
+# After initializing the driver
+print("Driver initialized...")
+
+# Set a custom wait time
+timeout = 30  # seconds
+
+# Example of navigating to a URL and waiting for the page to load
+driver.get("https://example.com")
+print("Navigating to page...")
+
+try:
+    # Explicitly wait for a specific element on the page to ensure it loaded
+    WebDriverWait(driver, timeout).until(
+        EC.presence_of_element_located((By.TAG_NAME, "body"))
+    )
+    print("Page loaded successfully!")
+except Exception as e:
+    print(f"Error loading page: {e}")
+    driver.quit()
+
+# Proceed with your scraping logic
 
 # Initialize a session using Amazon DynamoDB
 session = boto3.Session(region_name='us-west-2')  # Replace with your region
