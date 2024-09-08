@@ -1,10 +1,15 @@
 Once your EC2 instances are rebooted, you can follow these steps to set them up correctly for running your headless Firefox and `seattle_cars.py` script using Selenium with Xvfb. Here's a general step-by-step guide:
 
-### Step 1: Reconnect to Your EC2 Instance
+### Step 1: Reconnect to Your EC2 Instance and pull the git repo
 After rebooting the instance, SSH back into it:
 
 ```bash
 ssh -i /path/to/your-key.pem ec2-user@your-instance-public-ip
+```
+```bash
+cd clBot/
+git pull origin main
+cd ../
 ```
 
 ### Step 2: Install Necessary Dependencies (if not already installed)
