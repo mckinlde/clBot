@@ -103,7 +103,7 @@ tail -f /home/ec2-user/seattle_cars_error.log
 - **Debugging**: If the script hangs, check the logs for any errors related to the driver or Xvfb setup.
 
 ### Copypasta for 5 ec2 instances approximately evenly spaced:
-```
+
 ```bash
 ./clBot/update_cronjob.sh 1 2 29
 ```
@@ -118,7 +118,7 @@ tail -f /home/ec2-user/seattle_cars_error.log
 ```
 ```bash
 ./clBot/update_cronjob.sh 5 21 17
-
+```
 
 It is currently 6:35, aka 18:35, so I'll finish by running script #4.
 
