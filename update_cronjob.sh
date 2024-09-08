@@ -20,19 +20,22 @@ crontab -l > mycron_backup
 # Ensure the run_seattle_cars.sh script has executable permissions
 chmod +x clBot/run_seattle_cars.sh
 
+# Create a new mycron file if none exists
+touch mycron
+
 # Check if the cron job already exists
 if crontab -l | grep -q "clBot/run_seattle_cars.sh"; then
   # Update the existing cronjob
   crontab -l | sed "s|clBot/run_seattle_cars.sh .*|$CRON_JOB|" > mycron
 else
   # Add the new cronjob
-  (crontab -l; echo "$CRON_JOB") | crontab -
+  (crontab -l; echo "$CRON_JOB") > mycron
 fi
 
 # Install the new cron file
 crontab mycron
 
 # Clean up
-rm mycron
+rm -f mycron
 
 echo "Cronjob updated successfully with area set $AREA_SET, scheduled at $HOUR:$MINUTE."
