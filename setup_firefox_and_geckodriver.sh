@@ -28,7 +28,9 @@ sudo yum install -y \
 
 # Set up headless mode with Xvfb
 export MOZ_HEADLESS=1
-Xvfb :99 & export DISPLAY=:99
+Xvfb :99 -screen 0 1024x768x16 &  # Start Xvfb in the background
+export DISPLAY=:99  # Set the DISPLAY environment variable
+
 
 # Download and set up Geckodriver
 wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
