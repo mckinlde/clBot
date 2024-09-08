@@ -232,3 +232,14 @@ This flexibility allows you to run the cron jobs at specific times with minimal 
 
 # // ----------------------------------------------------------------------
 
+# Copypasta for updating old ec2s that already have a :
+
+```
+cd clBot/
+git pull origin main
+cd ../
+chmod +x ~/clBot/setup_firefox_and_geckodriver.sh
+./clBot/setup_firefox_and_geckodriver.sh
+chmod +x ~/clBot/update_cronjob.sh
+./clBot/update_cronjob.sh
+```
