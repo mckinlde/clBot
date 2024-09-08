@@ -8,6 +8,7 @@ ssh -i /path/to/your-key.pem ec2-user@your-instance-public-ip
 ```
 ```bash
 cd clBot/
+git stash
 git pull origin main
 cd ../
 ```
