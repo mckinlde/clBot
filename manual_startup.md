@@ -3,7 +3,6 @@
 ### Why not just manually start one every 20 minutes?
 
 ```Bash
-pkill -f .sh
 crontab -r
 cd clBot/
 git stash
