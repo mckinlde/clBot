@@ -236,6 +236,7 @@ This flexibility allows you to run the cron jobs at specific times with minimal 
 
 ```
 cd clBot/
+git stash
 git pull origin main
 cd ../
 chmod +x ~/clBot/setup_firefox_and_geckodriver.sh
