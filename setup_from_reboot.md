@@ -78,6 +78,7 @@ geckodriver --version
 Ensure that your cronjobs are correctly set up to run the script. Use the `update_cronjob.sh` script you created to install the cronjob for each instance with the appropriate area set and time:
 
 ```bash
+chmod +x ./clBot/update_cronjob.sh
 ./clBot/update_cronjob.sh <area_set_number> <hour> <minute>
 ```
 
