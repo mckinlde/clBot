@@ -5,7 +5,7 @@ How to know a good deal when you see one? Look at a lot of them.
 
 You can read about why this is a bad idea [here](https://singlepaynews.com/feed/1431) 
 
-But apparently I just can't help myself.
+But apparently I just can't help myself. ((Note from the future: skip to step 7 if you're using this as a boilerplate; we setup with firefox/geckdriver now and have shell scripts for everything from installing stuff to creating cronjobs))
 
 # 2. Launching an ec2 from the aws web console
 First, I launch an ec2 instance.  I use:
@@ -197,27 +197,38 @@ Everything has broken.  Chrome will no longer launch, and I have switched to gec
 
 To ensure that both `update_cronjob.sh` and `run_seattle_cars.sh` work seamlessly together, a few adjustments are necessary. Here’s a breakdown of the necessary changes and the reasoning behind them:
 
-### Usage:
+### Usage of Repo from fresh ec2:
 
 - First, run setup_git.sh, then pull this repo.
 
 - Then, run setup_selenium.sh and setup_firefox_and_geckodriver.sh; these should just be installing stuff
 
-- Now, run update_cronjob.sh to make a cronjob that will use run_seattle_cars.sh to run seattle_cars.py with a given area selected.  To update the cron job for a specific area set, run the following command:
+- Now, run update_cronjob.sh to make a cronjob that will use run_seattle_cars.sh to run seattle_cars.py with a given area selected.  
+
+### Key Changes:
+- The *update_cronjob.sh* script now takes three arguments:
+  - `AREA_SET`: The area set number (e.g., `1`, `2`, etc.).
+  - `HOUR`: The hour (in 24-hour format) when you want the cron job to run (e.g., `0` for midnight, `12` for noon).
+  - `MINUTE`: The minute when you want the cron job to run (e.g., `7`, `12`, etc.).
+
+### Example Usage of update_cronjob.sh after installing dependencies:
+
+To set the cron job to run at **12:07 AM** every day for area set `1`, you would run:
 
 ```bash
-./update_cronjob.sh <area_set_number>
+./update_cronjob.sh 1 0 7
 ```
 
-For example, if you want to set it for area set `3`, you'd run:
+This would schedule the job to run at 00:07 every day with area set `1`.
+
+For **12:12 PM** and area set `3`, you would run:
 
 ```bash
-./update_cronjob.sh 3
+./update_cronjob.sh 3 12 12
 ```
 
-This will update the cron job to run `run_seattle_cars.sh 3` at midnight every day.
-
-Make sure the path to `run_seattle_cars.sh` in the cron job (`/path/to/clBot/run_seattle_cars.sh`) is correct, and the permissions for both scripts are executable (use `chmod +x` on the scripts if needed).
+This flexibility allows you to run the cron jobs at specific times with minimal effort.
 
 
 # // ----------------------------------------------------------------------
+
