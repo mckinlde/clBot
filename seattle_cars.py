@@ -32,7 +32,6 @@ firefox_options.add_argument("--headless")  # Run in headless mode
 firefox_options.add_argument("--disable-gpu")  # Disable GPU acceleration
 firefox_options.add_argument("--no-sandbox")  # Required for running as root
 firefox_options.add_argument("--disable-software-rasterizer")
-firefox_options.add_argument("--remote-debugging-port=9222")
 
 # Set up FirefoxDriver
 service = Service("/usr/local/bin/geckodriver")  # Make sure geckodriver is installed and in this path
