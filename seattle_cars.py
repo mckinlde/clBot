@@ -1,3 +1,5 @@
+# for accepting command-line arguments
+import sys
 # for running a headless webdriver
 import random
 
@@ -322,10 +324,13 @@ def update_existing_listings(existing_listings, area, driver, get_html_from_url,
 # -----------------------------------------------------------------------------
 # LOOP
 # -----------------------------------------------------------------------------
-# Prompt user for area set selection
-# I think this is causeing bugs in 'expect' script print("Area sets 1-5 avaliable")
 
-choice = input("Select an area set:")
+# Accept area set as a command-line argument
+if len(sys.argv) > 1:
+    choice = sys.argv[1]
+else:
+    # Prompt user for area set selection
+    choice = input("Select an area set:")
 
 if choice == '1':
     areas = areas1
@@ -340,7 +345,6 @@ elif choice == '5':
 else:
     print("Invalid choice. Defaulting to Set 1.")
     areas = areas1
-
 startTime_of_country = datetime.datetime.now()
 
 for area in areas:
