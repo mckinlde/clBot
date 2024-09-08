@@ -2,8 +2,9 @@
 import random
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+
 # for waiting for pages to render:
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -23,26 +24,18 @@ import datetime
 
 # SETUP
 # -----------------------------------------------------------------------------
-chrome_options = Options()
-chrome_options.add_argument("--single-process")
-chrome_options.add_argument("--headless")  # Use the older headless mode
-chrome_options.add_argument("--no-sandbox")  # Required for running as root in many cases
-chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration (optional)
-chrome_options.add_argument("--remote-debugging-port=9222")  # Enable debugging
-chrome_options.add_argument("--disable-software-rasterizer")
-chrome_options.add_argument("--single-process")
-chrome_options.add_argument("--no-zygote")
-# Chrome might be having trouble writing to the default /tmp directory. You can resolve this by specifying a different directory for the Chrome cache.
-chrome_options.add_argument("--user-data-dir=/home/ec2-user/chrome-data")
-chrome_options.add_argument("--disk-cache-dir=/home/ec2-user/chrome-cache")
-# This directs Chrome to use the /home/ec2-user/chrome-data and /home/ec2-user/chrome-cache directories instead of /tmp. You may need to create these directories:
-# mkdir -p /home/ec2-user/chrome-data /home/ec2-user/chrome-cache
+# Firefox setup for headless mode
+firefox_options = Options()
+firefox_options.add_argument("--headless")  # Run in headless mode
+firefox_options.add_argument("--disable-gpu")  # Disable GPU acceleration
+firefox_options.add_argument("--no-sandbox")  # Required for running as root
+firefox_options.add_argument("--disable-software-rasterizer")
+firefox_options.add_argument("--remote-debugging-port=9222")
 
+# Set up FirefoxDriver
+service = Service("/usr/local/bin/geckodriver")  # Make sure geckodriver is installed and in this path
+driver = webdriver.Firefox(service=service, options=firefox_options)
 
-# Set up ChromeDriver
-service = Service("/usr/local/bin/chromedriver")
-driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Initialize a session using Amazon DynamoDB
 session = boto3.Session(region_name='us-west-2')  # Replace with your region
