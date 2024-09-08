@@ -235,6 +235,12 @@ This flexibility allows you to run the cron jobs at specific times with minimal 
 # Copypasta for updating old ec2s that already have a :
 
 ```
+wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz
+tar -xvzf geckodriver-v0.33.0-linux64.tar.gz
+sudo mv geckodriver /usr/local/bin/
+sudo chmod +x /usr/local/bin/geckodriver
+```
+```
 cd clBot/
 git stash
 git pull origin main
