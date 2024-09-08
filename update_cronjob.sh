@@ -12,18 +12,18 @@ HOUR=$2
 MINUTE=$3
 
 # Define the cronjob entry with the area set and time
-CRON_JOB="$MINUTE $HOUR * * * /path/to/run_seattle_cars.sh $AREA_SET"
+CRON_JOB="$MINUTE $HOUR * * * clBot/run_seattle_cars.sh $AREA_SET"
 
 # Backup existing crontab to avoid data loss
 crontab -l > mycron_backup
 
 # Ensure the run_seattle_cars.sh script has executable permissions
-chmod +x /path/to/run_seattle_cars.sh
+chmod +x clBot/run_seattle_cars.sh
 
 # Check if the cron job already exists
-if crontab -l | grep -q "/path/to/run_seattle_cars.sh"; then
+if crontab -l | grep -q "clBot/run_seattle_cars.sh"; then
   # Update the existing cronjob
-  crontab -l | sed "s|/path/to/run_seattle_cars.sh .*|$CRON_JOB|" > mycron
+  crontab -l | sed "s|clBot/run_seattle_cars.sh .*|$CRON_JOB|" > mycron
 else
   # Add the new cronjob
   (crontab -l; echo "$CRON_JOB") | crontab -
