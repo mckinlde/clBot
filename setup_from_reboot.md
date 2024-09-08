@@ -122,4 +122,20 @@ tail -f /home/ec2-user/seattle_cars_error.log
 
 It is currently 6:35, aka 18:35, so I'll finish by running script #4.
 
+### Note: just updating cronjob with update_cronjob.sh resulted in badly formatted cronjobs that didn't work.  I have to remove the existing crontab with the following, done for each instance:
 
+```
+[ec2-user@ip-172-31-27-223 ~]$ crontab -l > my_cron_backup.txt
+[ec2-user@ip-172-31-27-223 ~]$ crontab -r
+[ec2-user@ip-172-31-27-223 ~]$ ./clBot/update_cronjob.sh 1 2 29
+no crontab for ec2-user
+no crontab for ec2-user
+no crontab for ec2-user
+Cronjob updated successfully with area set 1, scheduled at 2:29.
+[ec2-user@ip-172-31-27-223 ~]$ crontab -l
+29 2 * * * clBot/run_seattle_cars.sh 1
+[ec2-user@ip-172-31-27-223 ~]$ chmod +x clBot/run_seattle_cars.sh
+[ec2-user@ip-172-31-27-223 ~]$
+```
+
+I think I could make a robust update_cronjob.sh script that would help launch my professional sysadmin career, but who knows, maybe I just need a bash cheatsheet because figuring out what's going on is the real skill.
