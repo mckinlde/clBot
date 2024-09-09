@@ -119,8 +119,6 @@ areas5 = [
     "northernwi", "sheboygan", "wausau", "wyoming", "micronesia", "puertorico", "virgin"
 ]
 
-
-# -----------------------------------------------------------------------------
 # HELPER FUNCTIONS
 # -----------------------------------------------------------------------------
 def initialize_driver():
@@ -257,6 +255,29 @@ def check_listing_activity(soup):
     
     return {'is_expected': False, 'activity': 'unknown'}
 
+def query_dynamodb(area_value):
+    """
+    Query the DynamoDB table for active listings in a specific area.
+    """
+    response = table.query(
+        KeyConditionExpression=Key('area').eq(area_value),
+        FilterExpression=Attr('activity').eq('active')
+    )
+
+    items = response.get('Items', [])
+    result_dict = {}
+
+    for item in items:
+        url = item.get('url')
+        if url:
+            result_dict[url] = {
+                'activity': item.get('activity'),
+                'listing_html': item.get('listing_html'),
+                'updated': item.get('updated')
+            }
+
+    return result_dict
+
 def process_frontpage(area, driver):
     """
     Process the front page of Craigslist listings for a specific area.
@@ -321,16 +342,15 @@ def update_existing_listings(existing_listings, area, driver):
     }
 
 
+# MAIN EXECUTION
 # -----------------------------------------------------------------------------
-# MAIN SCRIPT LOOP
-# -----------------------------------------------------------------------------
-
 # Accept area set as a command-line argument
 if len(sys.argv) > 1:
     choice = sys.argv[1]
 else:
     choice = input("Select an area set:")
 
+# Define the areas to process
 areas = {
     '1': areas1,
     '2': areas2,
@@ -338,23 +358,27 @@ areas = {
     '4': areas4,
     '5': areas5
 }.get(choice, areas1)
-
 startTime_of_country = datetime.datetime.now()
 
 for area in areas:
-    # Initialize the driver for this area
-    driver = initialize_driver()
-
     startTime_of_area = datetime.datetime.now()
 
-    # Query the table for existing listings
+    # Initialize driver for each area
+    driver = initialize_driver()
+
+    # Query the table
     existing_listings = query_dynamodb(area)
 
-    # Update existing listings
+    # 1. Check existing listings
     updated = update_existing_listings(existing_listings, area, driver)
 
-    # Process new listings from the front page
+    # 2. Process new listings from front page
     processed = process_frontpage(area, driver)
+
+    # Quit driver and wait before proceeding to next area
+    driver.quit()
+    print(f"Driver quit. Waiting 30 seconds before processing the next area...")
+    sleep(30)
 
     endTime_of_area = datetime.datetime.now()
     areaDeltaT = endTime_of_area - startTime_of_area
@@ -364,12 +388,7 @@ for area in areas:
         text=f'EC2 {area} finished, updated: {updated}, processed: {processed}, timeDelta: {areaDeltaT}'
     )
 
-    # Quit the driver and wait before processing the next area
-    driver.quit()
-    print(f"Driver quit. Waiting 30 seconds before proceeding to the next area...")
-    sleep(30)
-
-# Finalize and quit driver
+# Final processing
 endTime_of_country = datetime.datetime.now()
 countryDeltaT = endTime_of_country - startTime_of_country
 
