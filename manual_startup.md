@@ -23,7 +23,10 @@ nohup python3 clBot/seattle_cars.py 3 > seattle_cars.log 2>&1 &
 ```
 ```Bash
 nohup python3 clBot/seattle_cars.py 2 > seattle_cars.log 2>&1 &
-
+```
 ```Bash
 nohup python3 clBot/seattle_cars.py 1 > seattle_cars.log 2>&1 &
+```
+```Bash
+tail -f nohup.out
 ```
