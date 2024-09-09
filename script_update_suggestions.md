@@ -1,3 +1,111 @@
+The error message indicates that `extract_frontpage_links()` is receiving a string instead of a BeautifulSoup object. This suggests that there might be an issue when `get_soup_from_url()` returns an error string instead of a parsed HTML soup object. To make the code more robust, we can add a check to ensure that the input to `extract_frontpage_links()` is a BeautifulSoup object before attempting to parse it.
+
+Here's a modified version of your script to handle this error gracefully:
+
+### 1. **Modify `get_soup_from_url()`** to return `None` in case of an error:
+
+```python
+def get_soup_from_url(driver, url, timeout=10):
+    try:
+        # Navigate to the specified URL
+        driver.get(url)
+
+        # Explicitly wait for an element to be present (you can adjust the condition based on your needs)
+        WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.TAG_NAME, 'body'))
+        )
+
+        sleep(3)
+        # Get the HTML content after waiting
+        page_html = driver.page_source
+        # Create BeautifulSoup soup object
+        soup = BeautifulSoup(page_html, 'html.parser')
+        return soup
+    except Exception as e:
+        # Log the error and return None
+        print(f"Error while fetching URL: {url}, Error: {str(e)}")
+        return None
+```
+
+### 2. **Modify `extract_frontpage_links()`** to handle `None` or invalid input:
+
+```python
+def extract_frontpage_links(bs4_object):
+    if bs4_object is None or not hasattr(bs4_object, 'find_all'):
+        print("Error: Invalid BeautifulSoup object passed to extract_frontpage_links.")
+        return []
+    
+    links = []
+    for link in bs4_object.find_all('a', class_='posting-title'):
+        href = link.get('href')
+        if href:
+            links.append(href)
+    return links
+```
+
+### 3. **Handle empty links in `process_frontpage()`**:
+
+In the `process_frontpage()` function, check if links were successfully extracted before proceeding.
+
+```python
+def process_frontpage(area, driver, get_soup_from_url, extract_frontpage_links, get_html_from_url, soup_from_html, check_listing_activity):
+    # Fetch the front page soup from the URL
+    frontpage_soup = get_soup_from_url(
+        driver,
+        f'https://{area}.craigslist.org/search/cta?purveyor=owner#search=1~gallery~0~0'
+    )
+
+    if frontpage_soup is None:
+        print(f"Error: Failed to fetch front page for area: {area}")
+        return {'new_listings_added': 0}
+
+    # Extract links from the front page
+    links = extract_frontpage_links(frontpage_soup)
+    
+    if not links:
+        print(f"Error: No links found for area: {area}")
+        return {'new_listings_added': 0}
+
+    new_listings_count = 0
+
+    for i, link in enumerate(links, start=1):
+        print('Processing frontpage: ', area)
+        print('link: ', link)
+        print(i, ' of ', len(links))
+        # Get HTML content from the link
+        link_html = get_html_from_url(driver, link)
+
+        # Check listing activity
+        listing_activity = check_listing_activity(soup_from_html(link_html))
+
+        if listing_activity['is_expected']:
+            # Insert new item into DynamoDB
+            table.put_item(
+                Item={
+                    'area': area,  # primary key (partition key)
+                    'url': link,  # Sort key
+                    'added': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
+                    'activity': 'active',
+                    'updated': datetime.datetime.now().isoformat(),  # Convert to ISO 8601 string
+                    'listing_html': link_html
+                }
+            )
+            new_listings_count += 1
+
+    return {'new_listings_added': new_listings_count}
+```
+
+### Summary of Changes:
+1. **Graceful error handling**: In `get_soup_from_url()`, return `None` when an error occurs and log it.
+2. **Ensure valid input**: In `extract_frontpage_links()`, check if the passed object is valid and return an empty list if not.
+3. **Check for empty lists**: In `process_frontpage()`, handle cases where no links are found, and ensure that no further processing is done on an empty list.
+
+After making these changes, your script will be more resilient to cases where the Craigslist page fails to load or where the parsing encounters an issue.
+
+### ------------------------------------------------------------------------------------------------------------------
+### ------------------------------------------------------------------------------------------------------------------
+### ------------------------------------------------------------------------------------------------------------------
+
 The error you're encountering suggests that the `bs4_object` passed to the `extract_frontpage_links` function is a string, not a BeautifulSoup object. This means something went wrong when trying to create a BeautifulSoup object from the HTML.
 
 Here’s how to debug and fix the issue:
