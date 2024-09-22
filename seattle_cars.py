@@ -287,7 +287,7 @@ def process_frontpage(area, driver):
         print(f"Failed to load frontpage for {area}")
         return
     else:
-        print frontpage_soup.prettify()
+        print(frontpage_soup.prettify())
 
     links = extract_frontpage_links(frontpage_soup)
     new_listings_count = 0
