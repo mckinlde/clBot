@@ -106,19 +106,17 @@ areas4 = [
     "hiltonhead", "myrtlebeach", "nesd", "csd", "rapidcity", "siouxfalls", "sd", "chattanooga",
     "clarksville", "cookeville", "jacksontn", "knoxville", "memphis", "nashville", "tricities"
 ]
-areas5 = [
-    "abilene", "amarillo", "austin", "beaumont", "brownsville", "collegestation", "corpuschristi",
-    "dallas", "nacogdoches", "delrio", "elpaso", "galveston", "houston", "killeen", "laredo",
-    "lubbock", "mcallen", "odessa", "sanangelo", "sanantonio", "sanmarcos", "bigbend", "texoma",
-    "easttexas", "victoriatx", "waco", "wichitafalls", "logan", "ogden", "provo", "saltlakecity",
-    "stgeorge", "vermont", "charlottesville", "danville", "fredericksburg", "norfolk", "harrisonburg",
-    "lynchburg", "blacksburg", "richmond", "roanoke", "swva", "winchester", "bellingham", "kpr",
-    "moseslake", "olympic", "pullman", "seattle", "skagit", "spokane", "wenatchee", "yakima",
-    "charlestonwv", "martinsburg", "huntington", "morgantown", "wheeling", "parkersburg", "swv", "wv",
-    "appleton", "eauclaire", "greenbay", "janesville", "racine", "lacrosse", "madison", "milwaukee",
-    "northernwi", "sheboygan", "wausau", "wyoming", "micronesia", "puertorico", "virgin"
-]
-
+areas5 = ["bellingham", "kpr", "moseslake", "olympic", "pullman", "seattle", "skagit", "spokane", "wenatchee", "yakima"]
+# 
+    # "abilene", "amarillo", "austin", "beaumont", "brownsville", "collegestation", "corpuschristi",
+    # "dallas", "nacogdoches", "delrio", "elpaso", "galveston", "houston", "killeen", "laredo",
+    # "lubbock", "mcallen", "odessa", "sanangelo", "sanantonio", "sanmarcos", "bigbend", "texoma",
+    # "easttexas", "victoriatx", "waco", "wichitafalls", "logan", "ogden", "provo", "saltlakecity",
+    # "stgeorge", "vermont", "charlottesville", "danville", "fredericksburg", "norfolk", "harrisonburg",
+    # "lynchburg", "blacksburg", "richmond", "roanoke", "swva", "winchester", ,
+    # "charlestonwv", "martinsburg", "huntington", "morgantown", "wheeling", "parkersburg", "swv", "wv",
+    # "appleton", "eauclaire", "greenbay", "janesville", "racine", "lacrosse", "madison", "milwaukee",
+    # "northernwi", "sheboygan", "wausau", "wyoming", "micronesia", "puertorico", "virgin"
 # HELPER FUNCTIONS
 # -----------------------------------------------------------------------------
 def initialize_driver():
